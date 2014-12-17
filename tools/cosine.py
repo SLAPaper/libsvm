@@ -3,6 +3,8 @@ import os
 import math
 import functools
 
+LIST_CLASS = ('轻快','婉约','劲爆','节奏感强')
+
 def calc_cos(v1,v2):
     if len(v1) != len(v2):
         print('the length of the two vector dosn\'t match')
@@ -10,7 +12,7 @@ def calc_cos(v1,v2):
     sxy = 0.0
     sx2 = 0.0
     sy2 = 0.0
-    for i in range(length - 1):
+    for i in range(length):
         sxy += float(v1[i]) * float(v2[i])
         sx2 += float(v1[i]) * float(v1[i])
         sy2 += float(v2[i]) * float(v2[i])
@@ -32,9 +34,12 @@ assert os.path.exists(test_filename),'testing file not found'
 
 ftrain = open(train_filename)
 ftest = open(test_filename)
+fname = open('.\\name_No.txt')
 
 dtrain = ftrain.readlines()
 dtest = ftest.readlines()
+dname = fname.readlines()
+
 
 ltrain = []
 for s in dtrain:
@@ -42,29 +47,32 @@ for s in dtrain:
     stemp = s.split()
     length = len(stemp)
     ltemp[0] = stemp[0]
-    for i in range(1,length - 1):
+    for i in range(1,length):
         ltemp[i] = stemp[i].split(':')[1]
     ltrain.append(ltemp)
 
-lclac = []
-for s in dtest:
+lname = {}
+for s in dname:
+    stemp = s.split('\t')
+    lname[int(stemp[1])] = stemp[0]
+
+len_dtest = len(dtest)
+for i in range(len_dtest):
+    lclac = []
     stest = {}
-    stemp = s.split()
+    stemp = dtest[i].split()
     length = len(stemp)
     stest[0] = stemp[0]
-    for i in range(1,length - 1):
-        stest[i] = stemp[i].split(':')[1]
-    for i in range(len(ltrain) - 1):
-        if ltrain[i][0] == stest[0]:
-            cosine = calc_cos(ltrain[i],stest)
-            lclac.append((i,cosine))
-
-#max = (0,0)
-#for s in lclac:
-#    if s[1] > max[1]:
-#        max = s
-lclac.sort(key=functools.cmp_to_key(compare),reverse=True)
-print("the most 3 similar vectors are %d, %d and %d, and the cosines are %f, %f and %f" % (lclac[0][0]+1,lclac[1][0]+1,lclac[2][0]+1,lclac[0][1],lclac[1][1],lclac[2][1]))
+    for j in range(1,length):
+        stest[j] = stemp[j].split(':')[1]
+    print("the class of vector%d is %s, which refers to %s" % (i+1,LIST_CLASS[int(stest[0])-1],lname[i+1]))
+    for j in range(len(ltrain)):
+        if ltrain[j][0] == stest[0]:
+            cosine = calc_cos(ltrain[j],stest)
+            lclac.append((j,cosine))
+    lclac.sort(key=functools.cmp_to_key(compare),reverse=True)
+    print("the most 3 similar vectors are %d, %d and %d, and the cosines are %f, %f and %f, which refer to %s, %s and %s" % (lclac[0][0]+1,lclac[1][0]+1,lclac[2][0]+1,lclac[0][1],lclac[1][1],lclac[2][1],lname[lclac[0][0]+1],lname[lclac[1][0]+1],lname[lclac[2][0]+1]))
 
 ftrain.close
 ftest.close
+fname.close
