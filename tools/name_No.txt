@@ -29,7 +29,7 @@ citymoon.mid	28
 cuiruo.mid	29
 dadi.mid	30
 dayuanrenchangjiu.mid	31
-dayuezaidongji.mid	32
+dayuezaidongji.mid 32
 dengnihuilai.mid	33
 dengnishuoaiwo.mid	34
 dongjingaiqinggushi.mid	35
@@ -142,16 +142,12 @@ wodeqinai.mid	141
 wolaizibeijing.mid	142
 womendezhutiqu.mid	143
 woshizhende.mid	144
-woxinyongheng.mid	145
+woxinyongheng.mid 145
 woyanganji.mid	146
 wubiandesiyi.mid	147
 wuzhilian.mid	148
 xiangsichengzai.mid	149
 xiaofengbo.mid	150
-xiaopingguo.mid	151
-xiaopingguo1.mid	152
-xiaopingguo4.mid	153
-xiaopingguo5.mid	154
 xiaosazouyihui.mid	155
 xiexienideai.mid	156
 xinge.mid	157
