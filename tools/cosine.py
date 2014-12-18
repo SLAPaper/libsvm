@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import os
 import math
 import functools
@@ -17,7 +17,7 @@ def calc_cos(v1,v2):
         sxy += float(v1[i]) * float(v2[i])
         sx2 += float(v1[i]) * float(v1[i])
         sy2 += float(v2[i]) * float(v2[i])
-    if sx2*sy2 == 0:
+    if sx2 * sy2 == 0:
         return 0
     else:
         result = sxy / math.sqrt(sx2 * sy2)
@@ -69,7 +69,7 @@ for i in range(len_dtest):
     stest[0] = stemp[0]
     for j in range(1,length):
         stest[j] = stemp[j].split(':')[1]
-    print("the class of vector%d is %s" % (i+1,LIST_CLASS[int(stest[0])]))
+    print("the class of vector%d is %s" % (i + 1,LIST_CLASS[int(stest[0])]))
 
     for j in range(len(ltrain)):
         if stest[0] == '0':
@@ -79,7 +79,7 @@ for i in range(len_dtest):
             cosine = calc_cos(ltrain[j],stest)
             lclac.append((j,cosine))
     lclac.sort(key=functools.cmp_to_key(compare),reverse=True)
-    print("the most 3 similar vectors are %d, %d and %d, and the cosines are %f, %f and %f, which refer to %s, %s and %s" % (lclac[0][0]+1,lclac[1][0]+1,lclac[2][0]+1,lclac[0][1],lclac[1][1],lclac[2][1],lname[lclac[0][0]],lname[lclac[1][0]],lname[lclac[2][0]]))
+    print("the most 3 similar vectors are %d, %d and %d, and the cosines are %f, %f and %f, which refer to %s, %s and %s" % (lclac[0][0] + 1,lclac[1][0] + 1,lclac[2][0] + 1,lclac[0][1],lclac[1][1],lclac[2][1],lname[lclac[0][0]],lname[lclac[1][0]],lname[lclac[2][0]]))
 
 ftrain.close
 ftest.close
