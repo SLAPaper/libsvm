@@ -23,6 +23,16 @@ def calc_cos(v1,v2):
         result = sxy / math.sqrt(sx2 * sy2)
         return result
 
+def calc_dis(v1,v2):
+    if len(v1) != len(v2):
+        print('the length of the two vector dosn\'t match')
+        raise SystemExit
+    length = len(v1)
+    result2 = 0.0
+    for i in range(1,length):
+        result2 += (float(v1[i]) - float(v2[i])) ** 2
+    return result2
+
 def compare(kw_only1, kw_only2):
     return kw_only1[1] - kw_only2[1]
 
@@ -62,7 +72,8 @@ for s in dname:
 
 len_dtest = len(dtest)
 for i in range(len_dtest):
-    lclac = []
+    lcalc = []
+    lcalc_dis = []
     stest = {}
     stemp = dtest[i].split()
     length = len(stemp)
@@ -74,12 +85,18 @@ for i in range(len_dtest):
     for j in range(len(ltrain)):
         if stest[0] == '0':
             cosine = calc_cos(ltrain[j],stest)
-            lclac.append((j,cosine))
+            lcalc.append((j,cosine))
+            distance = calc_dis(ltrain[j],stest)
+            lcalc_dis.append((j,distance))
         elif ltrain[j][0] == stest[0]:
             cosine = calc_cos(ltrain[j],stest)
-            lclac.append((j,cosine))
-    lclac.sort(key=functools.cmp_to_key(compare),reverse=True)
-    print("the most 3 similar vectors are %d, %d and %d, and the cosines are %f, %f and %f, which refer to %s, %s and %s" % (lclac[0][0] + 1,lclac[1][0] + 1,lclac[2][0] + 1,lclac[0][1],lclac[1][1],lclac[2][1],lname[lclac[0][0]],lname[lclac[1][0]],lname[lclac[2][0]]))
+            lcalc.append((j,cosine))
+            distance = calc_dis(ltrain[j],stest)
+            lcalc_dis.append((j,distance))
+    lcalc.sort(key=functools.cmp_to_key(compare),reverse=True)
+    lcalc_dis.sort(key=functools.cmp_to_key(compare))
+    print("the most 3 similar vectors based on cosine are \n\t%d, %d and %d, \n\tand the cosines are %f, %f and %f, \n\twhich refer to %s, %s and %s" % (lcalc[0][0] + 1,lcalc[1][0] + 1,lcalc[2][0] + 1,lcalc[0][1],lcalc[1][1],lcalc[2][1],lname[lcalc[0][0]],lname[lcalc[1][0]],lname[lcalc[2][0]]))
+    print("the most 3 similar vectors based on distance are \n\t%d, %d and %d, \n\tand the distances are %f, %f and %f, \n\twhich refer to %s, %s and %s" % (lcalc_dis[0][0] + 1,lcalc_dis[1][0] + 1,lcalc_dis[2][0] + 1,lcalc_dis[0][1],lcalc_dis[1][1],lcalc_dis[2][1],lname[lcalc_dis[0][0]],lname[lcalc_dis[1][0]],lname[lcalc_dis[2][0]]),end='\n\n')
 
 ftrain.close
 ftest.close
